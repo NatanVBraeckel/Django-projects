@@ -65,7 +65,7 @@
                 <div class="card">
                     <img src="{{ product.image }}" class="card-img-top">
                     <div class="card-body">
-                        <div class="card-title">
+                        <div class="card-title" id="nm{{ product.id }}">
                             {{ product.title }}
                         </div>
                         <div class="card-text">
@@ -128,10 +128,23 @@
         document.getElementById("cart").innerHTML = "Cart(" + Object.keys(cart).length + ")";
     });
 
-    $(function () {
+    DisplayCart(cart);
+    function DisplayCart(cart) {
+        var cartString = "";
+        cartString += '<h5>This is your cart</h5>';
+        var cartIndex = 1;
+
+        for(var x in cart) {
+            if (document.getElementById("nm" + x) !== null) {
+                cartString += cartIndex;
+                cartString += document.getElementById("nm" + x).innerHTML 
+                + "Qty: " + cart[x] + "</br>";
+                cartIndex += 1;
+            }
+        }
+        document.getElementById("cart").setAttribute("data-content", cartString);
         $('[data-toggle="popover"]').popover();
-        document.getElementById("cart").setAttribute("data-content", '<h5>This is your cart</h5>')
-    });
+    }
 </script>
 </html>
 
