@@ -74,7 +74,7 @@
 </body>
 <script type="text/javascript">
     if(localStorage.getItem('cart') == null) {
-        let cart = {};
+        var cart = {};
     } else {
         cart = JSON.parse(localStorage.getItem('cart'));
     }
@@ -83,6 +83,15 @@
         console.log('the add to cart button was clicked');
         var item_id = this.id.toString();
         console.log(item_id)
+
+        if(cart[item_id] != undefined) {
+            cart[item_id] = cart[item_id] + 1;
+        } else {
+            cart[item_id] = 1;
+        }
+
+        console.log(cart);
+        localStorage.setItem('cart', JSON.stringify(cart));
     });
 </script>
 </html>
