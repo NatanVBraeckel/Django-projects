@@ -142,6 +142,8 @@
                 cartIndex += 1;
             }
         }
+
+        cartString += "<a href='/checkout'><button class='btn btn-warning' id='checkout'>Checkout</button></a>";
         document.getElementById("cart").setAttribute("data-content", cartString);
         $('[data-toggle="popover"]').popover();
     }
