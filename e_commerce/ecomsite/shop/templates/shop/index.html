@@ -138,8 +138,7 @@
         for(var x in cart) {
             if (document.getElementById("nm" + x) !== null) {
                 cartString += cartIndex;
-                cartString += document.getElementById("nm" + x).innerHTML 
-                + "Qty: " + cart[x][0] + "</br>";
+                cartString += cart[x][1] + "Qty: " + cart[x][0] + "</br>";
                 cartIndex += 1;
             }
         }
