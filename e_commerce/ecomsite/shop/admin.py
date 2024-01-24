@@ -6,8 +6,15 @@ admin.site.site_title = "ABC Shopping"
 admin.site.index_title = "Manage ABC Shopping"
 
 class ProductAdmin(admin.ModelAdmin):
+
+    def change_category_to_default(self, request, queryset):
+        queryset.update(category="default")
+
+    change_category_to_default.short_description = "Default category"
+
     list_display = ('title', 'price', 'discount_price', 'category', 'description')
     search_fields = ('category',)
+    actions = ('change_category_to_default',)
 
 # Register your models here.
 admin.site.register(Product, ProductAdmin)
