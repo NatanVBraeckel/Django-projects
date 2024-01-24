@@ -7,6 +7,7 @@ admin.site.index_title = "Manage ABC Shopping"
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'discount_price', 'category', 'description')
+    search_fields = ('category',)
 
 # Register your models here.
 admin.site.register(Product, ProductAdmin)
