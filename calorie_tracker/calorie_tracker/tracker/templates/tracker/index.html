@@ -1,9 +1,16 @@
 <html>
 <head></head>
 <body>
-    {% for food in foods %}
-        {{ food.name }}
-        <br>
-    {% endfor %}
+    <form method="POST">
+        {% csrf_token %}
+        <select>
+            {% for food in foods %}
+                <option value="{{ food.name }}">
+                    {{ food.name }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
 </body>
 </html>
