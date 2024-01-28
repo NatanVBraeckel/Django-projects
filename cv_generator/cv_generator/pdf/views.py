@@ -20,3 +20,8 @@ def accept(request):
     
 
     return render(request, 'pdf/accept.html')
+
+def resume(request, id):
+    user_profile = Profile.objects.get(pk=id)
+
+    return render(request, 'pdf/resume.html', { 'user_profile': user_profile })
