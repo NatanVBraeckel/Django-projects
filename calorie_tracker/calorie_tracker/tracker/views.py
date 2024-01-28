@@ -11,6 +11,7 @@ def index(request):
         consume_object = Consume(user=user, food_consumed=consume)
         consume_object.save()
 
+    consumed_food = Consume.objects.filter(user=request.user)
     foods = Food.objects.all()
 
-    return render(request, 'tracker/index.html', { 'foods': foods })
+    return render(request, 'tracker/index.html', { 'foods': foods, 'consumed_food': consumed_food })

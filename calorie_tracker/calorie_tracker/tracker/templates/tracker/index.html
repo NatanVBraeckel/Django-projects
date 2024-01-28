@@ -13,5 +13,9 @@
         <button type="submit">Add</button>
     </form>
 
+    {% for c in consumed_food %}
+        {{ c.food_consumed.name }} --> {{ c.food_consumed.carbs }} carbs {{ c.food_consumed.protein }} protein {{ c.food_consumed.fats }} fats {{ c.food_consumed.calories }} calories<br>
+    {% endfor %}
+
 </body>
 </html>
