@@ -6,8 +6,8 @@
     <title>Document</title>
 </head>
 <body>
-    {% for link in link_address %}
-        {{ link }}
+    {% for link in link_address_list %}
+        {{ link.name }} => {{ link.address }}
         <br>
     {% endfor %}
 </body>
