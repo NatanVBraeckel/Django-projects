@@ -60,6 +60,7 @@
                         <th>Protein(g)</th>
                         <th>Fats(g)</th>
                         <th>Calories(kcal)</th>
+                        <th>Remove</th>
                     </tr>
     
                     {% for c in consumed_food %}
@@ -69,6 +70,7 @@
                         <td>{{ c.food_consumed.protein }}</td>
                         <td>{{ c.food_consumed.fats }}</td>
                         <td>{{ c.food_consumed.calories }}</td>
+                        <td><a class="btn btn-danger" href="{% url 'delete' c.id %}">Remove</a></td>
                     </tr>
                     {% endfor %}
                     <tr>
