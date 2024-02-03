@@ -1,6 +1,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 
@@ -87,12 +88,17 @@
                 <div class="card-header text-white bg-primary">
                     <h4>Macronutriens breakdown</h4>
                 </div>
-                <div class="col-md-12"></div>
+                <div class="col-md-12">
+                    <canvas id="myChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 <script>
     var table = document.getElementById("table");
@@ -116,6 +122,24 @@
     var calPer = (calories/2000) * 100;
 
     document.querySelector('.progress-bar').setAttribute('style', 'width:' + calPer + '%')
+
+    const ctx = document.getElementById('myChart');
+
+    var total = carbs + protein + fats;
+    var carbsP = Math.round(carbs/total * 100)
+    var proteinP = Math.round(protein/total * 100)
+    var fatsP = Math.round(fats/total * 100)
+
+    new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Carbs: ' + carbsP + '%', 'Protein ' + proteinP + '%', 'Fats ' + fatsP + '%'],
+        datasets: [{
+        data: [carbsP, proteinP, fatsP],
+        borderWidth: 1
+        }]
+    },
+    });
 </script>
 
 </html>
