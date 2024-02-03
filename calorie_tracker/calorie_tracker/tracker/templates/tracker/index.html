@@ -1,0 +1,147 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha512-G8JE1Xbr0egZE5gNGyUm1fF764iHVfRXshIoUWCTPAbKkkItp/6qal5YAHXrxEu4HNfPTQs6HOu3D5vCGS1j3w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-dark bg-primary"><span class="navbar-brand">Calorie Tracker</span></nav>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <br>
+        <br>
+        <br>
+
+        <h4>Calorie Goal</h4>
+        <br>
+        <div class="row">
+            <div class="col-md-9 offset-1">
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0"></div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="food_consumed" class="col-md-3"><b>Select food to add</b></label>
+                        <select class="col-md-7 form-control" name="food_consumed" id="food_consumed">
+                            {% for food in foods %}
+                                <option value="{{ food.name }}">
+                                    {{ food.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Add</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <h4>Today's consumption</h4>
+                </div>
+    
+                <table id="table" class="table table-striped table-primary">
+                    <tr class="bg-primary text-white">
+                        <th>Food item</th>
+                        <th>Carbs(g)</th>
+                        <th>Protein(g)</th>
+                        <th>Fats(g)</th>
+                        <th>Calories(kcal)</th>
+                        <th>Remove</th>
+                    </tr>
+    
+                    {% for c in consumed_food %}
+                    <tr>
+                        <td>{{ c.food_consumed.name }}</td>
+                        <td>{{ c.food_consumed.carbs }}</td>
+                        <td>{{ c.food_consumed.protein }}</td>
+                        <td>{{ c.food_consumed.fats }}</td>
+                        <td>{{ c.food_consumed.calories }}</td>
+                        <td><a class="btn btn-danger" href="{% url 'delete' c.id %}">Remove</a></td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td id="name"><b>Total</b></td>
+                        <td id="totalCarbs"></td>
+                        <td id="totalProtein"></td>
+                        <td id="totalFats"></td>
+                        <td id="totalCalories"></td>
+                    </tr>
+                </table>
+            </div>
+    
+            <div class="col-md-5 offset-1">
+                <div class="">
+                    <h4>Today's breakdown</h4>
+                </div>
+                <div class="card-header text-white bg-primary">
+                    <h4>Macronutriens breakdown</h4>
+                </div>
+                <div class="col-md-12">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+    var table = document.getElementById("table");
+    var carbs = 0;
+    var protein = 0;
+    var fats = 0;
+    var calories = 0;
+
+    for(var i = 1; i < table.rows.length - 1; i++) {
+        carbs += parseFloat(table.rows[i].cells[1].innerHTML)
+        protein += parseFloat(table.rows[i].cells[2].innerHTML)
+        fats += parseFloat(table.rows[i].cells[3].innerHTML)
+        calories += parseFloat(table.rows[i].cells[4].innerHTML)
+    }
+
+    document.getElementById('totalCarbs').innerHTML = `<b>${carbs.toFixed(2)}(g)</b>`;
+    document.getElementById('totalProtein').innerHTML = `<b>${protein.toFixed(2)}(g)</b>`;
+    document.getElementById('totalFats').innerHTML = `<b>${fats.toFixed(2)}(g)</b>`;
+    document.getElementById('totalCalories').innerHTML = `<b>${calories.toFixed(2)}(kcal)</b>`;
+
+    var calPer = (calories/2000) * 100;
+
+    document.querySelector('.progress-bar').setAttribute('style', 'width:' + calPer + '%')
+
+    const ctx = document.getElementById('myChart');
+
+    var total = carbs + protein + fats;
+    var carbsP = Math.round(carbs/total * 100)
+    var proteinP = Math.round(protein/total * 100)
+    var fatsP = Math.round(fats/total * 100)
+
+    new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Carbs: ' + carbsP + '%', 'Protein ' + proteinP + '%', 'Fats ' + fatsP + '%'],
+        datasets: [{
+        data: [carbsP, proteinP, fatsP],
+        borderWidth: 1
+        }]
+    },
+    });
+</script>
+
+</html>
