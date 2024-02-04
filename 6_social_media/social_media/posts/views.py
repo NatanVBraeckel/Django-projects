@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def post_create(request):
     if request.method == "POST":
-        form_data = PostCreateForm(data=request.POST)
+        form_data = PostCreateForm(data=request.POST, files=request.FILES)
         if form_data.is_valid():
             new_item = form_data.save(commit=False)
             new_item.user = request.user
