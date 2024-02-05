@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import PostCreateForm
 from django.contrib.auth.decorators import login_required
+from .models import Post
 
 # Create your views here.
 @login_required
@@ -14,3 +15,7 @@ def post_create(request):
     else:
         form_data = PostCreateForm(data=request.POST)
     return render(request, 'posts/create.html', {'form': form_data})
+
+def feed(request):
+    all_posts = Post.objects.all()
+    return render(request, 'posts/feed.html', { 'posts': all_posts })
