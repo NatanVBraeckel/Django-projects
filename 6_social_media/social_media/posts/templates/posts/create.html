@@ -1,8 +1,32 @@
 {% extends 'users/base.html' %}
 {% block body %}
-    <form method="POST" enctype="multipart/form-data">
+<h1 class="text-2xl font-bold mx-10 mt-5">Create a post</h1>
+<div class="container py-5">
+    <form method="POST" class="bg-white shadow-md m-10 w-full rounded px-8 pt-6 pb-8 mb-4 border border-gray-400">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Post</button>
+        <div class="mb-2">
+            <!-- {% if form.errors %}
+            <div class="error-container text-red-900 p-5 border border-red-500 bg-red-100 rounded mb-2">
+                    {% for field in form %}
+                        {{field.errors}}
+                    {% endfor %}
+            </div>
+            {% endif %} -->
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Title</label>
+            <div class="shadow appearance-none border rounded py-2 px-3 mr-10 mb-2">
+                {{ form.title }}
+            </div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="image">Image</label>
+            <div class="shadow appearance-none border rounded py-2 px-3 mr-10 mb-2">
+                {{ form.image }}
+            </div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="caption">Caption</label>
+            <div class="shadow appearance-none border rounded py-2 px-3 mr-10 mb-2">
+                {{ form.caption }}
+            </div>
+        </div>
+        <button class="text-white bg-green-500 px-5 py-2 mt-2 rounded-sm" type="submit">Create</button>
     </form>
+</div>
 {% endblock %}
+
