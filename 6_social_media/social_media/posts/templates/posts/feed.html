@@ -1,0 +1,83 @@
+{% extends 'users/base.html' %}
+{% load mathfilters %}
+{% load static %}
+{% block body %}
+    <div class="my-5 flex justify-center">
+        <h2 class="text-2xl font-bold text-slate-500">Feed</h2>
+    </div>
+    <div class="grid mx-60 p-10 grid-cols-1">
+        {% for post in posts %}
+            <a href="#" class="mb-4">
+                <div class="rounded overflow-hidden w-[470px] h-[470px] bg-white shadow-lg">
+                    <div class="user-container flex items-center m-5">
+                        <img class="h-10 w-10 rounded-full border" src="{{ post.user.profile.photo.url }}" alt="">
+                        <div class="m-2 font-bold"><span class="text-indigo-500">{{ post.user }}</span></div>
+                    </div>
+                    <img src="{{post.image.url}}" alt="">
+                    <div class="p-4 pl-0 pb-0 flex gap-4 items-center">
+                        <div class="icon-container">
+                            <a id="{{ post.id }}" class="btn-like">
+                                {% if logged_user in post.liked_by.all %}
+                                    <img class="h-10 w-10" src="{% static 'users/images/like_red.png' %}" alt="">
+                                {% else %}
+                                    <img class="h-10 w-10" src="{% static 'users/images/like.png' %}" alt="">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="icon-container">
+                            <img class="h-6 w-6" src="{% static 'users/images/comment.png' %}" alt="">
+                        </div>
+                        <div class="icon-container">
+                            <img class="h-6 w-6" src="{% static 'users/images/share.png' %}" alt="">
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        {% if post.liked_by.count < 1 %}
+                        {% elif post.liked_by.count == 1 %}
+                            {{ post.liked_by.first }} likes this
+                        {% else %}
+                            {{ post.liked_by.first }} and {{ post.liked_by.count | sub:1 }} other like this
+                        {% endif %}
+                    </div>
+                    <div class="p-4">
+                        <div class="font-bold text-xl mb-2">{{ post.title }}</div>
+                        <div class="text-gray-700 text-base">{{ post.caption }}</div>
+                    </div>
+                    <div class="px-4 mb-4 flex flex-col gap-2">
+                        <p class="font-semibold">Comments</p>
+                        {% for comment in post.comments.all %}
+                            <p><span class="font-semibold">{{ comment.posted_by }}</span> {{ comment }}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="px-4 mb-4">
+                        <form method="POST" class="bg-white rounded mb-4">
+                            {% csrf_token %}
+                            <input type="hidden" name="post_id" id="post_id" value="{{ post.id }}">
+                            <input type="hidden" name="posted_by" id="posted_by" value="{{ logged_user }}">
+                            <div class="mb-2">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Add comment</label>
+                            </div>
+                            <div class="shadow appearance-none border rounded py-2 px-3 mr-10 text-gray-700">
+                                {{ comment_form.body}}
+                            </div>
+                            <button type="submit" class="bg-green-500 rounded text-white px-5 py-2 mt-2">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+    <script type="text/javascript">
+        window.CSRF_TOKEN = "{{ csrf_token }}"
+        $(document).on('click', '.btn-like', function() {
+            console.log(`like button with id ${this.id} clicked`);
+            var post_id = this.id;
+            $.ajax({
+                method: "POST",
+                url: "/posts/like",
+                data: {post_id: post_id, csrfmiddlewaretoken: window.CSRF_TOKEN}
+            })
+            window.location.href="http://127.0.0.1:8000/posts/feed"
+        })
+    </script>
+{% endblock %}
