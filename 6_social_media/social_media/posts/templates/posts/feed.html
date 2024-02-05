@@ -48,6 +48,7 @@
                 url: "/posts/like",
                 data: {post_id: post_id, csrfmiddlewaretoken: window.CSRF_TOKEN}
             })
+            window.location.href="http://127.0.0.1:8000/posts/feed"
         })
     </script>
 {% endblock %}
