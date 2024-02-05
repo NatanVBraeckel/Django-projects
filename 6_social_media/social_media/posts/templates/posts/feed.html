@@ -1,4 +1,5 @@
 {% extends 'users/base.html' %}
+{% load mathfilters %}
 {% load static %}
 {% block body %}
     <div class="my-5 flex justify-center">
@@ -29,6 +30,14 @@
                         <div class="icon-container">
                             <img class="h-6 w-6" src="{% static 'users/images/share.png' %}" alt="">
                         </div>
+                    </div>
+                    <div class="ml-4">
+                        {% if post.liked_by.count < 1 %}
+                        {% elif post.liked_by.count == 1 %}
+                            {{ post.liked_by.first }} likes this
+                        {% else %}
+                            {{ post.liked_by.first }} and {{ post.liked_by.count | sub:1 }} other like this
+                        {% endif %}
                     </div>
                     <div class="p-4">
                         <div class="font-bold text-xl mb-2">{{ post.title }}</div>
