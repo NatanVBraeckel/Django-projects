@@ -18,7 +18,8 @@ def post_create(request):
 
 def feed(request):
     all_posts = Post.objects.all()
-    return render(request, 'posts/feed.html', { 'posts': all_posts })
+    logged_user = request.user
+    return render(request, 'posts/feed.html', { 'posts': all_posts, 'logged_user': logged_user })
 
 def like_post(request):
     post_id = request.POST.get('post_id')

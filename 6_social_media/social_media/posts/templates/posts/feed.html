@@ -16,7 +16,11 @@
                     <div class="p-4 pl-0 pb-0 flex gap-4 items-center">
                         <div class="icon-container">
                             <a id="{{ post.id }}" class="btn-like">
-                                <img class="h-10 w-10" src="{% static 'users/images/like.png' %}" alt="">
+                                {% if logged_user in post.liked_by.all %}
+                                    <img class="h-10 w-10" src="{% static 'users/images/like_red.png' %}" alt="">
+                                {% else %}
+                                    <img class="h-10 w-10" src="{% static 'users/images/like.png' %}" alt="">
+                                {% endif %}
                             </a>
                         </div>
                         <div class="icon-container">
