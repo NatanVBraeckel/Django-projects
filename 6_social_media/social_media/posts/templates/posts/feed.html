@@ -46,13 +46,14 @@
                     <div class="px-4 mb-4 flex flex-col gap-2">
                         <p class="font-semibold">Comments</p>
                         {% for comment in post.comments.all %}
-                            <p>{{ comment }}</p>
+                            <p><span class="font-semibold">{{ comment.posted_by }}</span> {{ comment }}</p>
                         {% endfor %}
                     </div>
                     <div class="px-4 mb-4">
                         <form method="POST" class="bg-white rounded mb-4">
                             {% csrf_token %}
                             <input type="hidden" name="post_id" id="post_id" value="{{ post.id }}">
+                            <input type="hidden" name="posted_by" id="posted_by" value="{{ logged_user }}">
                             <div class="mb-2">
                                 <label class="block text-gray-700 text-sm font-bold mb-2">Add comment</label>
                             </div>
