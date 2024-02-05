@@ -50,18 +50,16 @@
                         {% endfor %}
                     </div>
                     <div class="px-4 mb-4">
-                        <form method="POST">
+                        <form method="POST" class="bg-white rounded mb-4">
                             {% csrf_token %}
                             <input type="hidden" name="post_id" id="post_id" value="{{ post.id }}">
-                            <div>
-                                <label>Add comment</label>
+                            <div class="mb-2">
+                                <label class="block text-gray-700 text-sm font-bold mb-2">Add comment</label>
                             </div>
-                            <div>
+                            <div class="shadow appearance-none border rounded py-2 px-3 mr-10 text-gray-700">
                                 {{ comment_form.body}}
                             </div>
-                            <div>
-                                <button type="submit">Add</button>
-                            </div>
+                            <button type="submit" class="bg-green-500 rounded text-white px-5 py-2 mt-2">Add</button>
                         </form>
                     </div>
                 </div>
