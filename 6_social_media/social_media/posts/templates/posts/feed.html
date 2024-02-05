@@ -49,6 +49,12 @@
                             <p>{{ comment }}</p>
                         {% endfor %}
                     </div>
+                    <div class="px-4 mb-4">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="post_id">
+                        </form>
+                    </div>
                 </div>
             </a>
         {% endfor %}
