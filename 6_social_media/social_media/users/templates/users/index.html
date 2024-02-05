@@ -1,9 +1,19 @@
 {% extends 'users/base.html' %}
 {% block body %}
-<h1>Homepage for users app</h1>
-{% for post in posts %}
-    <h1>{{ post.title }}</h1>
-    <h2>{{ post.user }}</h2>
-    <img src="{{post.image.url}}" alt="">
-{% endfor %}
+    <div class="my-5 flex justify-center">
+        <h2 class="text-2xl font-bold text-slate-500">My posts</h2>
+    </div>
+    <div class="grid grid-cols-1">
+        {% for post in posts %}
+            <a href="#">
+                <div class="user-container">
+                    <img src="{{ profile.photo.url }}" alt="">
+                    <div>{{ post.user }}</div>
+                </div>
+                <div class="rounded overflow-hidden w-[470px] h-[470px] bg-white shadow-lg">
+                    <img src="{{post.image.url}}" alt="">
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 {% endblock %}
