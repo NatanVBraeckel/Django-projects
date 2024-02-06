@@ -31,4 +31,13 @@
             <div><button type="submit" class="mx-10 bg-blue-600 text-white rounded px-3 py-1 font-bold">Add</button></div>
         </div>
     </form>
+    <div>
+        Expenses
+    </div>
+    {% for expense in expenses %}
+        {{ expense.name }}
+        {{ expense.amount }}
+        {{ expense.category }}
+        {{ expense.date }}
+    {% endfor %}
 {% endblock %}
