@@ -47,7 +47,7 @@
         {% for expense in expenses %}
             <div class="expense-row flex space-x-40 py-4">
                 <span class="font-bold">{{ expense.name }}</span>
-                <span class="font-bold">{{ expense.amount }}</span>
+                <span class="font-bold">${{ expense.amount }}</span>
                 <span class="font-bold">{{ expense.category }}</span>
                 <span class="font-bold">{{ expense.date }}</span>
                 <span class="pl-16"><a href="{% url 'edit' expense.id %}">
@@ -63,6 +63,11 @@
                 </span>
             </div>
         {% endfor %}
+        <div class="pl-60 py-5">
+            <span class="font-bold text-green-500">
+                Total: ${{ total_amount.amount__sum }}
+            </span>
+        </div>
     </div>
 
 {% endblock %}
