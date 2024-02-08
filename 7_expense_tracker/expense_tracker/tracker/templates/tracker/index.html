@@ -132,4 +132,34 @@
         </div>
     </div>
 
+    <div class="flex">
+        <div class="w-1/2 shadow-lg ml-10">
+            <h3 class="m-10">Expense spread across categories</h3>
+            <canvas id="myChart" class="m-10"></canvas>
+        </div>
+        <div class="w-1/2 shadow-lg ml-10">
+
+        </div>
+    </div>
+
+    <script src="
+        https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js
+    "></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+      
+        new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+              label: '# of Votes',
+              data: [12, 19, 3, 5, 2, 3],
+              borderWidth: 1
+            }]
+          },
+        });
+    </script>
+
 {% endblock %}
