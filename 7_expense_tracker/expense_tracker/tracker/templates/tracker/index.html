@@ -91,7 +91,7 @@
     <div class="flex">
         <div class="w-1/2 shadow-lg m-10">
             <div class="flex flex-wrap space-x-40 font-bold px-20 py-5">
-                <span>Past 30 days sum expenses</span>
+                <span>Daily expenses</span>
             </div>
             <hr>
             <div id="30-day-table">
@@ -102,7 +102,28 @@
                         </span>
                     </div>
                     <div class="flex flex-wrap px-20 py-5">
-                        <span class="text-green-500">
+                        <span class="text-green-500 font-semibold">
+                            ${{ sum.sum | intcomma }}
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="w-1/2 shadow-lg m-10">
+            <div class="flex flex-wrap space-x-40 font-bold px-20 py-5">
+                <span>Categorical expenses</span>
+            </div>
+            <hr>
+            <div id="30-day-table">
+                {% for sum in category_sums %}
+                    <div class="flex flex-wrap px-20 py-5">
+                        <span>
+                            {{ sum.category }}
+                        </span>
+                    </div>
+                    <div class="flex flex-wrap px-20 py-5">
+                        <span class="text-green-500 font-semibold">
                             ${{ sum.sum | intcomma }}
                         </span>
                     </div>
