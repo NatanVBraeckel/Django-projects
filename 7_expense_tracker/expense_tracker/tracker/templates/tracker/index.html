@@ -103,7 +103,7 @@
                     </div>
                     <div class="flex flex-wrap px-20 py-5">
                         <span class="text-green-500 font-semibold">
-                            ${{ sum.sum | intcomma }}
+                            ${{ sum.sum }}
                         </span>
                     </div>
                 {% endfor %}
@@ -134,11 +134,12 @@
 
     <div class="flex">
         <div class="w-1/2 shadow-lg ml-10">
-            <h3 class="m-10">Expense spread across categories</h3>
+            <h3 class="m-10 font-semibold text-center">Expense spread across categories</h3>
             <canvas id="myChart" class="m-10"></canvas>
         </div>
         <div class="w-1/2 shadow-lg ml-10">
-
+            <h3 class="m-10 font-semibold text-center">Daily expense sum</h3>
+            <canvas id="dailyChart" class="m-10"></canvas>
         </div>
     </div>
 
@@ -149,6 +150,8 @@
     <script>
         const cats = [];
         const catSums = [];
+        const dailyCats = [];
+        const dailySums = [];
 
         const catSumDiv = document.getElementById('cat-sum-table').getElementsByTagName('div');
         for(i=0; i<catSumDiv.length; i++) {
@@ -159,6 +162,16 @@
             }
         }
         console.log(catSums)
+
+        const dailySumDiv = document.getElementById('30-day-table').getElementsByTagName('div');
+        for(i=0; i<dailySumDiv.length; i++) {
+            if(i%2 == 1) {
+                dailySums.push(dailySumDiv[i].innerText.replace('$', ''));
+            } else {
+                dailyCats.push(dailySumDiv[i].innerText);
+            }
+        }
+        console.log(dailySums)
 
         const ctx = document.getElementById('myChart');
       
@@ -172,6 +185,20 @@
               borderWidth: 1
             }]
           },
+        });
+
+        const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+      
+        new Chart(dailyCtx, {
+            type: 'line',
+            data: {
+            labels: dailyCats,
+            datasets: [{
+                label: 'Daily expenses',
+                data: dailySums,
+                borderWidth: 1
+            }]
+            },
         });
     </script>
 
