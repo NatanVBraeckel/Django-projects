@@ -124,7 +124,7 @@
                     </div>
                     <div class="flex flex-wrap px-20 py-5">
                         <span class="text-green-500 font-semibold">
-                            ${{ sum.sum | intcomma }}
+                            ${{ sum.sum }}
                         </span>
                     </div>
                 {% endfor %}
@@ -147,16 +147,18 @@
     "></script>
 
     <script>
-        const cats = []
+        const cats = [];
+        const catSums = [];
+
         const catSumDiv = document.getElementById('cat-sum-table').getElementsByTagName('div');
         for(i=0; i<catSumDiv.length; i++) {
             if(i%2 == 1) {
-
+                catSums.push(catSumDiv[i].innerText.replace('$', ''));
             } else {
                 cats.push(catSumDiv[i].innerText);
             }
         }
-        console.log(cats)
+        console.log(catSums)
 
         const ctx = document.getElementById('myChart');
       
@@ -166,7 +168,7 @@
             labels: cats,
             datasets: [{
               label: 'Categorical expenses',
-              data: [12, 19, 3, 5, 2, 3],
+              data: catSums,
               borderWidth: 1
             }]
           },
