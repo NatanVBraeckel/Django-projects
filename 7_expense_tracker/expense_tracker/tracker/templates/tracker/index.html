@@ -50,7 +50,7 @@
                 <span class="font-bold">{{ expense.name }}</span>
                 <span class="font-bold">${{ expense.amount | intcomma }}</span>
                 <span class="font-bold">{{ expense.category }}</span>
-                <span class="font-bold">{{ expense.date }}</span>
+                <span class="font-bold">{{ expense.data }}</span>
                 <span class="pl-16"><a href="{% url 'edit' expense.id %}">
                     <img class="h-6 w-6" src="{% static 'tracker/images/edit.png' %}" alt="edit">
                 </a></span>
