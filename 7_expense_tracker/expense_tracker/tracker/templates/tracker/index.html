@@ -115,7 +115,7 @@
                 <span>Categorical expenses</span>
             </div>
             <hr>
-            <div id="30-day-table">
+            <div id="cat-sum-table">
                 {% for sum in category_sums %}
                     <div class="flex flex-wrap px-20 py-5">
                         <span>
@@ -147,14 +147,25 @@
     "></script>
 
     <script>
+        const cats = []
+        const catSumDiv = document.getElementById('cat-sum-table').getElementsByTagName('div');
+        for(i=0; i<catSumDiv.length; i++) {
+            if(i%2 == 1) {
+
+            } else {
+                cats.push(catSumDiv[i].innerText);
+            }
+        }
+        console.log(cats)
+
         const ctx = document.getElementById('myChart');
       
         new Chart(ctx, {
           type: 'pie',
           data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: cats,
             datasets: [{
-              label: '# of Votes',
+              label: 'Categorical expenses',
               data: [12, 19, 3, 5, 2, 3],
               borderWidth: 1
             }]
