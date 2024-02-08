@@ -48,7 +48,12 @@
                 <span class="font-bold">{{ expense.category }}</span>
                 <span class="font-bold">{{ expense.date }}</span>
                 <span class="font-bold"><a href="{% url 'edit' expense.id %}">Edit</a></span>
-                <span class="font-bold"><a href="">Delete</a></span>
+                <span class="font-bold">
+                    <form method="post" action="{% url 'delete' expense.id %}">
+                        {% csrf_token %}
+                        <button type="submit" name="delete" class="font-bold">Delete</button>
+                    </form>
+                </span>
             </div>
         {% endfor %}
     </div>
