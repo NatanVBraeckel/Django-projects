@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import ExpenseForm
 from .models import Expense
 from django.db.models import Sum
-import datetime
+from datetime import datetime, timedelta
 
 # Create your views here.
 def index(request):
@@ -17,18 +17,18 @@ def index(request):
     # print(total_amount)
 
     # 365 days expenses
-    last_year = datetime.today() - datetime.timedelta(days=365)
-    dates = Expense.objects.filter(data_gt=last_year)
+    last_year = datetime.today() - timedelta(days=365)
+    dates = Expense.objects.filter(data__gt=last_year)
     total_year = dates.aggregate(Sum('amount'))
 
     # last month expenses
-    last_month = datetime.today() - datetime.timedelta(days=30)
-    dates = Expense.objects.filter(data_gt=last_month)
+    last_month = datetime.today() - timedelta(days=30)
+    dates = Expense.objects.filter(data__gt=last_month)
     total_month = dates.aggregate(Sum('amount'))
 
     # last week expenses
-    last_week = datetime.today() - datetime.timedelta(days=7)
-    dates = Expense.objects.filter(data_gt=last_week)
+    last_week = datetime.today() - timedelta(days=7)
+    dates = Expense.objects.filter(data__gt=last_week)
     total_week = dates.aggregate(Sum('amount'))
 
     form = ExpenseForm()
