@@ -1,0 +1,10 @@
+div.expense-row, div.expense-header {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+div.expense-row span, div.expense-header span {
+    display: table-cell;
+    text-align: center;
+}
