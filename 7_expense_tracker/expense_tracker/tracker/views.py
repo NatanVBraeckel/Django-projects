@@ -13,3 +13,8 @@ def index(request):
     expenses = Expense.objects.all()
     form = ExpenseForm()
     return render(request, 'tracker/index.html', { 'expense_form': form, 'expenses': expenses })
+
+def edit(request, id):
+    expense = Expense.objects.get(id=id)
+    form = ExpenseForm(instance=expense)
+    return render(request, 'tracker/edit.html',  { 'expense_form': form })
