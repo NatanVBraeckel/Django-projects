@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Chat app</title>
+</head>
+<body>
+    <nav class="shadow-lg p-2">
+        <div class="container flex flex-wrap justify-between mx-auto items-center">
+            <a href="/rooms" class="flex gap-3 items-center">
+                <img class="h-10 w-10" src="https://cdn4.iconfinder.com/data/icons/sapphire-storm-1/32/color-web3-09-256.png">
+                <span class="self-center text-xl font-semibold">Chat app</span>
+            </a>
+
+            <div>
+                <ul class="flex gap-3">
+                    <li>
+                        <a href="" class="font-semibold">Rooms</a>
+                    </li>
+                    <li>
+                        <a href="" class="font-semibold">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% block body %}
+    {% endblock %}
+</body>
+</html>
