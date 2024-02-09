@@ -15,7 +15,13 @@
         'ws://' + window.location.host + '/ws/' + chatroomName + '/'
     );
     chatSocket.onmessage = function(e) {
-        console.log("this is a message");
+        // console.log("this is a message");
+        const data = JSON.parse(e.data);
+        if(data.message) {
+            console.log('received message: ' + data.message);
+        } else {
+            alert('The message was empty');
+        }
     }
     chatSocket.onclose = function(e) {
         console.log("socket closed");

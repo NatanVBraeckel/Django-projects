@@ -21,8 +21,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.room_group_name
         )
 
-    async def receive(self, message_data):
-        data = json.loads(message_data)
+    async def receive(self, text_data):
+        data = json.loads(text_data)
         message = data['message']
         username = data['username']
         room = data['roomname']
