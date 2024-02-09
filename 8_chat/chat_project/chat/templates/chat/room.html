@@ -1,3 +1,5 @@
+{% extends 'chat/base.html' %}
+{% block body %}
 {{ chatroom.name }}
 
 <div id="chat-messages">
@@ -14,6 +16,8 @@
 
 {{ chatroom.slug |json_script:"json-chatroomname" }}
 {{ request.user.username|json_script:'json-username' }}
+
+{% endblock %}
 <script>
     const chatroomName = JSON.parse(document.getElementById('json-chatroomname').textContent);
     const username = JSON.parse(document.getElementById('json-username').textContent);
