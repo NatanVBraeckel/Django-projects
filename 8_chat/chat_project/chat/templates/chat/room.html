@@ -1,5 +1,7 @@
 {{ chatroom.name }}
 
+<div id="chat-messages"></div>
+
 <form method="POST">
     {% csrf_token %}
     <input id="message-input" type="text" name="message" placeholder="Enter message">
@@ -18,7 +20,9 @@
         // console.log("this is a message");
         const data = JSON.parse(e.data);
         if(data.message) {
-            console.log('received message: ' + data.message);
+            // console.log('received message: ' + data.message);
+            let html = data.username + ': ' + data.message + '<br>';
+            document.getElementById('chat-messages').innerHTML += html;
         } else {
             alert('The message was empty');
         }
