@@ -34,4 +34,9 @@
             </div>
         </div>
     </div>
+
+    {% for daily_sales_sum in daily_sales_sums %}
+        {{ daily_sales_sum.created_on__date }} -> {{ daily_sales_sum.sum }}
+        <br>
+    {% endfor %}
 {% endblock %}
