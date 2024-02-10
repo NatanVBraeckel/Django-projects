@@ -74,5 +74,12 @@ def dashboard(request):
     return render(request, 'marketplace/dashboard.html',{'products':products})
 
 def register(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        new_user = form.save(commit=False)
+        new_user.set_password(form.cleaned_data['password'])
+        new_user.save()
+        return redirect('index')
+
     form = UserRegistrationForm()
     return render(request, 'marketplace/register.html', { 'user_form': form })
