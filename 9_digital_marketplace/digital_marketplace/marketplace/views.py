@@ -44,5 +44,11 @@ def payment_failed_view(request):
     return render(request, 'marketplace/payment_failed.html')
 
 def create_product(request):
-    product_form = ProductForm()
+    if request.method == "POST":
+        product_form = ProductForm(request.POST, request.FILES)
+        if product_form.is_valid():
+            new_product = product_form.save()
+            return redirect('index')
+    else:
+        product_form = ProductForm()
     return render(request, 'marketplace/create_product.html', { 'form': product_form })
