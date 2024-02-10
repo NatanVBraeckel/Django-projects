@@ -4,6 +4,7 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import stripe,json
 import random
+from .forms import ProductForm
 
 # Create your views here.
 def index(request):
@@ -41,3 +42,7 @@ def payment_success_view(request, id):
 
 def payment_failed_view(request):
     return render(request, 'marketplace/payment_failed.html')
+
+def create_product(request):
+    product_form = ProductForm()
+    return render(request, 'marketplace/create_product.html', { 'form': product_form })
