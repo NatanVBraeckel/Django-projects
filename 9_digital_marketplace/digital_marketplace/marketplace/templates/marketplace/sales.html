@@ -35,8 +35,19 @@
         </div>
     </div>
 
-    {% for daily_sales_sum in daily_sales_sums %}
-        {{ daily_sales_sum.created_on__date }} -> {{ daily_sales_sum.sum }}
-        <br>
-    {% endfor %}
+    <div class="flex">
+        <div class="w-1/2 shadow-lg m-10" id="sales-table">
+            <div class="ml-10 mt-10 font-bold text-xl">30 Day Sales</div>
+            <div class="flex m-10 mt-5 mb-5">
+                <div class="w-1/2">Day</div>
+                <div class="w-1/2">Total Sales</div>
+            </div>
+            {% for daily_sales_sum in daily_sales_sums %}
+                <div class="flex m-10 mt-5 mb-5 ">
+                    <div class="w-1/2 created-date"> {{ daily_sales_sum.created_on__date }}</div>
+                    <div class="w-1/2 day-sum font-bold text-green-500">{{ daily_sales_sum.sum }}</div>
+                </div>
+            {% endfor %}
+        </div>    
+    </div>
 {% endblock %}
