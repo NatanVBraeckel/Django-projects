@@ -1,0 +1,18 @@
+{% extends 'marketplace/base.html' %} 
+{% block body %}
+    <div class="flex justify-between">
+        <div class="ml-20 mt-10 font-bold text-xl">My Products</div>
+        <div class="ml-20 mt-10">
+            <a class="bg-green-500 text-white px-2 py-4 mr-8 rounded" href="{% url 'createproduct' %}">New Product</a>
+        </div>
+    </div>
+
+    
+    <div class="products-container p-10 m-5">
+        {% for product in products %}
+            {{ product.name }}
+            {{ product.description }}
+            {{ product.price }}
+        {% endfor %}
+    </div>
+{% endblock %}

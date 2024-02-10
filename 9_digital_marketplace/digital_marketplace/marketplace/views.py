@@ -68,3 +68,7 @@ def product_delete(request, id):
         product.delete()
         return redirect('index')
     return render(request, 'marketplace/delete.html', { 'product': product })
+
+def dashboard(request):
+    products = Product.objects.all()
+    return render(request, 'marketplace/dashboard.html',{'products':products})
