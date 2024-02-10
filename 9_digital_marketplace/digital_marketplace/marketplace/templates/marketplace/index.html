@@ -1,4 +1,10 @@
 {% extends 'marketplace/base.html' %}
 {% block body %}
 <h1>Marketplace home page</h1>
+{% for product in products %}
+    {{ product.name }}
+    {{ product.price }}
+    {{ product.description }}
+    <br>
+{% endfor %}
 {% endblock %}
