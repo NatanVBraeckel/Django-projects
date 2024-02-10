@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import redirect, render, reverse
 from .models import Product,OrderDetail
 from django.conf import settings
@@ -109,4 +110,20 @@ def my_purchases(request):
 def sales(request):
     orders = OrderDetail.objects.filter(product__seller=request.user)
     total_sales = orders.aggregate(Sum('amount'))
-    return render(request, 'marketplace/sales.html', { 'total_sales': total_sales })
+
+    # 365 day sales
+    last_year = datetime.date.today() - datetime.timedelta(days=365)
+    data = OrderDetail.objects.filter(product__seller=request.user,created_on__gt=last_year)
+    yearly_sales = data.aggregate(Sum('amount'))
+    
+    # 30 day sales
+    last_month = datetime.date.today() - datetime.timedelta(days=30)
+    data = OrderDetail.objects.filter(product__seller=request.user,created_on__gt=last_month)
+    monthly_sales = data.aggregate(Sum('amount'))
+    
+    #7 day sales
+    last_week = datetime.date.today() - datetime.timedelta(days=7)
+    data = OrderDetail.objects.filter(product__seller=request.user,created_on__gt=last_week)
+    weekly_sales = data.aggregate(Sum('amount'))
+    
+    return render(request, 'marketplace/sales.html', { 'total_sales': total_sales, 'yearly_sales': yearly_sales, 'monthly_sales': monthly_sales, 'weekly_sales': weekly_sales })
