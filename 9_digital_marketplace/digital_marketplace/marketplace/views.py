@@ -36,6 +36,11 @@ def create_checkout_session(request, id):
 def payment_success_view(request, id):
     order = OrderDetail.objects.get(id=id)
     order.has_paid = True
+    #updating product sales stats
+    product = Product.objects.get(id=order.product.id)
+    product.total_sales_amount += int(product.price)
+    product.total_sales += 1
+    product.save()
     order.save()
 
     return render(request, 'marketplace/payment_success.html', { 'order': order })
@@ -96,5 +101,6 @@ def invalid(request):
     return render(request, 'marketplace/invalid.html')
 
 def my_purchases(request):
-    orders = OrderDetail.objects.filter(customer_email=request.user.email)
+    orders = OrderDetail.objects.filter(customer_email=str(request.user.email))
+    print(request.user.email)
     return render(request, 'marketplace/purchases.html', { 'orders': orders })

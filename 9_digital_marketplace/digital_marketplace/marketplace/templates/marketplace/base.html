@@ -9,7 +9,7 @@
 <body>
     <nav class="border-b border-red-800 py-2">
         <div class="flex justify-between ml-5 items-center mx-auto px-4">
-            <a href="" class="flex items-center">
+            <a href="{% url 'index' %}" class="flex items-center">
                 <img class="h-9 mr-3" src="https://cdn0.iconfinder.com/data/icons/shopping-and-ecommerce-15/512/sale_lineal_color_cnvrt-01-512.png">
                 <span class="self-center text-xl font-semibold">Digital marketplace</span>
             </a>
@@ -18,7 +18,7 @@
                 <a href="" class="text-sm font-medium text-gray-800">Sales</a>
                 <a href="" class="text-sm font-medium text-gray-800">Orders</a>
                 <a href="" class="text-sm font-medium text-gray-800">Create products</a>
-                <a href="" class="text-sm font-medium text-gray-800">My purchases</a>
+                <a href="{% url 'purchases' %}" class="text-sm font-medium text-gray-800">My purchases</a>
                 <a href="{% url 'logout' %}" class="text-sm font-medium text-gray-800">Logout</a>
             </div>
         </div>

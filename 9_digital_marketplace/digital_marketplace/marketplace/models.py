@@ -8,6 +8,8 @@ class Product(models.Model):
     price = models.FloatField()
     file = models.FileField(upload_to='uploads')
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_sales_amount = models.IntegerField(default=0)
+    total_sales = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
