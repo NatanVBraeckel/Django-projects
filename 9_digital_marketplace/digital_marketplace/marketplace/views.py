@@ -15,13 +15,13 @@ def detail(request, id):
     return render(request, 'marketplace/detail.html', { 'product': product })
 
 @csrf_exempt
-def create_checkout_session(request,id):
+def create_checkout_session(request, id):
     # ik ga niet de stripe functionaliteit inbouwen, ik ga mocken of een payment failed of success is
 
     request_data = json.loads(request.body)
     product = Product.objects.get(id=id)
 
-    if(random.uniform(0, 1) == 1):
+    if random.uniform(0, 1) < 0.2:
         return redirect('failed')
     
     order = OrderDetail()
@@ -30,7 +30,7 @@ def create_checkout_session(request,id):
     order.amount = int(product.price)
     order.save()
     
-    return redirect('success')
+    return redirect('success', order.id)
 
 def payment_success_view(request, id):
     order = OrderDetail.objects.get(id=id)
