@@ -17,4 +17,5 @@ urlpatterns = [
     path('logout', auth_views.LogoutView.as_view(template_name='marketplace/logout.html'), name="logout"),
     path('invalid', views.invalid, name='invalid'),
     path('purchases', views.my_purchases, name='purchases'),
+    path('sales', views.sales, name='sales'),
 ]

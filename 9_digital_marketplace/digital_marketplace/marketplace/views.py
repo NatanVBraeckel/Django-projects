@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 import stripe,json
 import random
 from .forms import ProductForm, UserRegistrationForm
+from django.db.models import Sum
 
 # Create your views here.
 def index(request):
@@ -104,3 +105,8 @@ def my_purchases(request):
     orders = OrderDetail.objects.filter(customer_email=str(request.user.email))
     print(request.user.email)
     return render(request, 'marketplace/purchases.html', { 'orders': orders })
+
+def sales(request):
+    orders = OrderDetail.objects.filter(product__seller=request.user)
+    total_sales = orders.aggregate(Sum('amount'))
+    return render(request, 'marketplace/sales.html', { 'total_sales': total_sales })
