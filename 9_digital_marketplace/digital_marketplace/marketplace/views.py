@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import redirect, render, reverse
 from .models import Product,OrderDetail
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -14,15 +14,15 @@ def detail(request, id):
     product = Product.objects.get(id=id)
     return render(request, 'marketplace/detail.html', { 'product': product })
 
-# @csrf_exempt
+@csrf_exempt
 def create_checkout_session(request,id):
-    # ik ga niet de stripe functionaliteit inbouwen
+    # ik ga niet de stripe functionaliteit inbouwen, ik ga mocken of een payment failed of success is
 
     request_data = json.loads(request.body)
     product = Product.objects.get(id=id)
 
     if(random.uniform(0, 1) == 1):
-        return render(request, 'marketplace/index.html')
+        return redirect('failed')
     
     order = OrderDetail()
     order.customer_email = request_data['email']
@@ -30,7 +30,7 @@ def create_checkout_session(request,id):
     order.amount = int(product.price)
     order.save()
     
-    return render(request, 'marketplace/index.html')
+    return redirect('success')
 
 def payment_success_view(request, id):
     order = OrderDetail.objects.get(id=id)
@@ -38,3 +38,6 @@ def payment_success_view(request, id):
     order.save()
 
     return render(request, 'marketplace/payment_success.html', { 'order': order })
+
+def payment_failed_view(request):
+    return render(request, 'marketplace/payment_failed.html')
