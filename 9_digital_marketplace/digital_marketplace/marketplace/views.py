@@ -60,4 +60,11 @@ def product_edit(request, id):
         if product_form.is_valid():
             product_form.save()
             return redirect('index')
-    return render(request, 'marketplace/product_edit.html', { 'form': product_form })
+    return render(request, 'marketplace/product_edit.html', { 'form': product_form, 'product': product })
+
+def product_delete(request, id):
+    product = Product.objects.get(id=id)
+    if request.method == "POST":
+        product.delete()
+        return redirect('index')
+    return render(request, 'marketplace/delete.html', { 'product': product })
