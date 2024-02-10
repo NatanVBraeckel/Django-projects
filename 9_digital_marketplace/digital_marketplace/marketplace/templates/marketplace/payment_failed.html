@@ -1,1 +1,7 @@
-payment was failed
+{% extends 'marketplace/base.html' %} 
+{% block body %}
+    <div class="grid place-items-center h-screen">
+        <div class="font-bold text-6xl">Payment Failed</div>
+        <a href="{% url 'index' %}">Go back to the homepage</a>
+    </div>
+{% endblock %}
