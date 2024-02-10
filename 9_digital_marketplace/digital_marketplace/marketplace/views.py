@@ -52,3 +52,8 @@ def create_product(request):
     else:
         product_form = ProductForm()
     return render(request, 'marketplace/create_product.html', { 'form': product_form })
+
+def product_edit(request, id):
+    product = Product.objects.get(id=id)
+    product_form = ProductForm(request.POST or None, request.FILES or None, instance=product)
+    return render(request, 'marketplace/product_edit.html', { 'form': product_form })
