@@ -94,3 +94,7 @@ def register(request):
 
 def invalid(request):
     return render(request, 'marketplace/invalid.html')
+
+def my_purchases(request):
+    orders = OrderDetail.objects.filter(customer_email=request.user.email)
+    return render(request, 'marketplace/purchases.html', { 'orders': orders })
