@@ -49,14 +49,17 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="w-1/2">
-            <div>
-                <canvas id="myChart"></canvas>
-            </div>
+        <div class="w-1/2 shadow-lg m-10 p-5">
+            <div class="mr-10 font-bold text-xl">30 days sales</div>
+            <canvas id="myChart"></canvas>
         </div>
     </div>
 
-    <div class="flex">        
+    <div class="flex">
+        <div class="w-1/2 shadow-lg m-10 p-5">
+            <div class="mr-10 font-bold text-xl">Product sales distribution</div>
+            <canvas id="psalesChart"></canvas>
+        </div>
         <div class="w-1/2 shadow-lg m-10">
             <div class="ml-10 mt-10 font-bold text-xl">Product Sales</div>
             <div class="flex m-10 mt-5 mb-5">
@@ -85,26 +88,60 @@
         for(let i = 0; i < dates.length; i++){
             date_values.push(dates[i].innerText)
         }
+
+        const product_names = document.getElementsByClassName('product-name')
+        const name_values =[]
+        for(let i=0; i < product_names.length; i++){
+            single_name = product_names[i].innerText
+            name_values.push(single_name)
+        }
+        
+        const product_sums = document.getElementsByClassName('product-sum')
+        const product_sum_values =[]
+        for(let i = 0; i < product_sums.length; i++){
+            product_sum_values.push(product_sums[i].innerText)
+        }
         
         const ctx = document.getElementById('myChart');
-      
+    
         new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: date_values,
-            datasets: [{
-              label: 'Sales past 30 days',
-              data: sum_values,
-              borderWidth: 1
-            }]
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true
-              }
+            type: 'line',
+            data: {
+                labels: date_values,
+                datasets: [{
+                label: 'Sales past 30 days',
+                data: sum_values,
+                borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                y: {
+                    beginAtZero: true
+                }
+                }
             }
-          }
         });
-      </script>
+
+        const pContext = document.getElementById('psalesChart');
+      
+        new Chart(pContext, {
+            type: 'bar',
+            data: {
+            labels: name_values,
+            datasets: [{
+                label: 'Sales per product',
+                data: product_sum_values,
+                borderWidth: 1
+            }]
+            },
+            options: {
+            scales: {
+                y: {
+                beginAtZero: true
+                }
+            }
+            }
+        });
+    </script>
 {% endblock %}
